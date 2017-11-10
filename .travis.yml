@@ -33,6 +33,7 @@ install:
 
   # Sylius
   - git clone https://github.com/Sylius/Sylius.git --depth 1 --single-branch --branch v1.0.0-beta.3 project/sylius
+  - composer install --working-dir project/sylius
 
   # Spryker
   - git clone https://github.com/spryker/demoshop --depth 1 --single-branch --branch 2.14 project/spryker

@@ -1,4 +1,12 @@
+php:
+    memory_limit: 2G
+
 parameters:
-    bootstrap: "phpstan-sylius-bootstrap.php"
-    ignoreErrors:
-        - "#Class [A-Za-z\\\\]+ not found and could not be autoloaded#"
+    bootstrap: "project/sylius/vendor/autoload.php"
+    excludes_analyse:
+        - %rootDir%/../../../project/sylius/src/**/spec/*
+        - %rootDir%/../../../project/sylius/src/**/Tests/*
+        - %rootDir%/../../../project/sylius/src/**/test/*
+        - %rootDir%/../../../project/sylius/src/**/Fixture/*
+        - %rootDir%/../../../project/sylius/src/**/*ODM*
+        - %rootDir%/../../../project/sylius/src/**/DependencyInjection/Configuration.php
