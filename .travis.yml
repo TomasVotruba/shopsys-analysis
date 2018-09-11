@@ -16,13 +16,12 @@ before_install:
 install:
     - composer install
 
-    # prepare projects
-    - bin/run prepare
-
 script:
-    - bin/run analyze
-    - bin/run ecs
-    - bin/run phpstan
+    # spryker
+    - bin/run prepare --project spryker
+    - bin/run analyze --project spryker
+    - bin/run ecs --project spryker
+    - bin/run phpstan --project spryker
 
 notifications:
     email: false
