@@ -16,13 +16,12 @@ before_install:
 install:
     - composer install
 
-    # prepare projects
-    - bin/run prepare
-
 script:
-    - bin/run analyze
-    - bin/run ecs
-    - bin/run phpstan
+    # shopsys
+    - bin/run prepare --project shopsys
+    - bin/run analyze --project shopsys
+    - bin/run ecs --project shopsys
+    - bin/run phpstan --project shopsys
 
 notifications:
     email: false
