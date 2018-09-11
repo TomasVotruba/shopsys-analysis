@@ -16,13 +16,12 @@ before_install:
 install:
     - composer install
 
-    # prepare projects
-    - bin/run prepare
-
 script:
-    - bin/run analyze
-    - bin/run ecs
-    - bin/run phpstan
+    # sylius
+    - bin/run prepare --project sylius
+    - bin/run analyze --project sylius
+    - bin/run ecs --project sylius
+    - bin/run phpstan --project sylius
 
 notifications:
     email: false
