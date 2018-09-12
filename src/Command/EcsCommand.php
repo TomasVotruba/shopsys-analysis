@@ -80,9 +80,6 @@ final class EcsCommand extends Command
 
             $process->run();
 
-            if (! $process->isSuccessful()) {
-                throw new ProcessFailedException($process);
-            }
         } else {
             $this->symfonyStyle->note(sprintf('Using cached result file "%s". Remove it to re-run.', $tempFile));
         }

@@ -3,26 +3,54 @@ language: php
 # required for installing PHP extensions
 sudo: true
 
-php:
-    - 7.2
+php: 7.2
+
+env:
+    matrix:
+        # shopsys
+        - PROJECT="shopsys"
+          ANALYSIS="analyze"
+        - PROJECT="shopsys"
+          ANALYSIS="ecs"
+        - PROJECT="shopsys"
+          ANALYSIS="phpstan"
+
+        # spryker
+        - PROJECT="spryker"
+          ANALYSIS="analyze"
+        - PROJECT="spryker"
+          ANALYSIS="ecs"
+        - PROJECT="spryker"
+          ANALYSIS="phpstan"
+
+        # sylius
+        - PROJECT="sylius"
+          ANALYSIS="analyze"
+        - PROJECT="sylius"
+          ANALYSIS="ecs"
+        - PROJECT="sylius"
+          ANALYSIS="phpstan"
+
+before_script:
+     # make the script fail for any failed command
+     - set -e
 
 before_install:
     # Spryker required extensions
-    - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - sudo add-apt-repository ppa:ondrej/php -y # "-y" for skipping "Enter" reuqired message
-    - sudo apt-get update
-    - sudo apt-get install php-gmp php-bz2
+    - |
+      if [[ $PROJECT == "spryker" ]]; then
+         echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+         sudo add-apt-repository ppa:ondrej/php -y # "-y" for skipping "Enter" reuqired message
+         sudo apt-get update
+         sudo apt-get install php-gmp php-bz2
+      fi
 
 install:
     - composer install
-
-    # prepare projects
-    - bin/run prepare
+    - bin/run prepare --project $PROJECT
 
 script:
-    - bin/run analyze
-    - bin/run ecs
-    - bin/run phpstan
+    - bin/run $ANALYSIS --project $PROJECT
 
 notifications:
     email: false
