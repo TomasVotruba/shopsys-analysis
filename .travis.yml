@@ -13,7 +13,7 @@ env:
         - PROJECT="shopsys"
           ANALYSIS="ecs"
         - PROJECT="shopsys"
-          ANALYSIS="phpstan $PROJECT"
+          ANALYSIS="phpstan"
 
         # spryker
         - PROJECT="spryker"
