@@ -2,6 +2,7 @@
 
 namespace TomasVotruba\ShopsysAnalysis\Command;
 
+use Nette\Utils\FileSystem as NetteFileSystem;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 use Symfony\Component\Console\Command\Command;
@@ -101,9 +102,11 @@ final class PhpStanCommand extends Command
     private function getErrorCountFromTempFile(string $tempFile): int
     {
         try {
-            $resultJson = Json::decode(file_get_contents($tempFile), Json::FORCE_ARRAY);
+            $resultJson = Json::decode(NetteFileSystem::read($tempFile), Json::FORCE_ARRAY);
         } catch (JsonException $jsonException) {
             // remove corrupted file and continue
+            dump($tempFile);
+
             $this->filesystem->remove($tempFile);
 
             throw $jsonException;
